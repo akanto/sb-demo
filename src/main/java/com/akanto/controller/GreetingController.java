@@ -2,7 +2,7 @@ package com.akanto.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.akanto.api.GreetingEndpoint;
 import com.akanto.hello.Greeting;
@@ -10,7 +10,7 @@ import com.akanto.hello.Greeting;
 
 // controller contains only spring annotation
 
-@Component
+@Controller
 public class GreetingController implements GreetingEndpoint {
 
     private static final String template = "Hello, %s!";
