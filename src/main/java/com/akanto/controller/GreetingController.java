@@ -2,26 +2,22 @@ package com.akanto.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
 import org.springframework.stereotype.Component;
 
+import com.akanto.api.GreetingEndpoint;
 import com.akanto.hello.Greeting;
 
+
+// controller contains only spring annotation
+
 @Component
-@Path("/greeting")
-public class GreetingController {
+public class GreetingController implements GreetingEndpoint {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Greeting greeting(@QueryParam(value = "name") String name) {
+    @Override
+    public Greeting greeting(String name) {
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
     }
