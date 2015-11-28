@@ -2,21 +2,29 @@ package com.akanto.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.springframework.stereotype.Component;
 
 import com.akanto.hello.Greeting;
 
-@RestController
+@Component
+@Path("/greeting")
 public class GreetingController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Greeting greeting(@QueryParam(value = "name") String name) {
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
     }
+
+
 }
