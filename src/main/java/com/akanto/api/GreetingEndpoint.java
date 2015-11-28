@@ -18,4 +18,10 @@ public interface GreetingEndpoint {
     Greeting greeting(@QueryParam(value = "name") String name);
 
 
+    @GET
+    @Path("/error")
+    @Produces(MediaType.APPLICATION_JSON)
+    Greeting error();
+
+
 }
