@@ -1,13 +1,24 @@
-package com.akanto.akka;
+package com.akanto.akka.actors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.akanto.akka.messages.Result;
+import com.akanto.akka.messages.Work;
 
 import akka.actor.UntypedActor;
 
 public class Worker extends UntypedActor {
 
+    private Logger log = LoggerFactory.getLogger(Worker.class);
+
+    public Worker() {
+        log.info("Worker instantiated: {}", this);
+    }
 
     // calculatePiFor ...
-
     public void onReceive(Object message) {
+        log.info("Worker message received: {}", message);
         if (message instanceof Work) {
             Work work = (Work) message;
             double result = calculatePiFor(work.getStart(), work.getNrOfElements());

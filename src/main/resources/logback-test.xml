@@ -10,8 +10,6 @@
 
     <logger name="com.akanto" level="DEBUG" />
 
-    <logger name="org.springframework.transaction" level="TRACE" />
-
     <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>

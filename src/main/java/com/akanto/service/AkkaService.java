@@ -22,7 +22,7 @@ public class AkkaService {
     public Greeting greetingAkka() {
         String hello = "Hello Akka! Pi: ";
         log.debug(hello);
-        pi.calculate();
+        pi.calculate(4, 10000, 10);
         return new Greeting(0, hello);
     }
 

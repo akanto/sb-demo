@@ -2,6 +2,10 @@ package com.akanto.akka;
 
 import org.springframework.stereotype.Service;
 
+import com.akanto.akka.actors.Listener;
+import com.akanto.akka.actors.Master;
+import com.akanto.akka.messages.Calculate;
+
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
@@ -9,13 +13,7 @@ import akka.actor.Props;
 @Service
 public class Pi {
 
-    public void calculate() {
-        Pi pi = new Pi();
-        pi.calculate(4, 10000, 10000);
-    }
-
     // actors and messages ...
-
     public void calculate(final int nrOfWorkers, final int nrOfElements, final int nrOfMessages) {
         // Create an Akka system
         ActorSystem system = ActorSystem.create("PiSystem");

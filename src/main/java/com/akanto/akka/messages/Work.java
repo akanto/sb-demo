@@ -1,4 +1,4 @@
-package com.akanto.akka;
+package com.akanto.akka.messages;
 
 public class Work {
     private final int start;
@@ -15,5 +15,13 @@ public class Work {
 
     public int getNrOfElements() {
         return nrOfElements;
+    }
+
+    @Override
+    public String toString() {
+        return "Work{" +
+                "start=" + start +
+                ", nrOfElements=" + nrOfElements +
+                '}';
     }
 }

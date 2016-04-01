@@ -1,4 +1,4 @@
-package com.akanto.akka;
+package com.akanto.akka.messages;
 
 public class Result {
 
@@ -10,5 +10,12 @@ public class Result {
 
     public double getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "value=" + value +
+                '}';
     }
 }

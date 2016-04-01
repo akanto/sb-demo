@@ -1,4 +1,4 @@
-package com.akanto.akka;
+package com.akanto.akka.messages;
 
 import scala.concurrent.duration.Duration;
 
@@ -19,4 +19,11 @@ public class PiApproximation {
         return duration;
     }
 
+    @Override
+    public String toString() {
+        return "PiApproximation{" +
+                "pi=" + pi +
+                ", duration=" + duration +
+                '}';
+    }
 }
