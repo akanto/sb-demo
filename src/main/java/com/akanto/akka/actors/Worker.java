@@ -7,13 +7,25 @@ import com.akanto.akka.messages.Result;
 import com.akanto.akka.messages.Work;
 
 import akka.actor.UntypedActor;
+import scala.Option;
 
 public class Worker extends UntypedActor {
 
-    private Logger log = LoggerFactory.getLogger(Worker.class);
+    private static Logger log = LoggerFactory.getLogger(Worker.class);
 
     public Worker() {
         log.info("Worker instantiated: {}", this);
+    }
+
+    @Override
+    public void preRestart(Throwable reason, Option<Object> message) throws Exception {
+        super.preRestart(reason, message);
+        if (message.isDefined()) {
+            log.info("Resend message: {}", message.get());
+            getSelf().tell(message.get(), getSender());
+        } else {
+            log.warn("All actor recives, they can safely ignore it: {}, message: {}", reason.getMessage(), message);
+        }
     }
 
     // calculatePiFor ...
@@ -22,6 +34,10 @@ public class Worker extends UntypedActor {
         if (message instanceof Work) {
             Work work = (Work) message;
             double result = calculatePiFor(work.getStart(), work.getNrOfElements());
+            if (Math.random() > 0.9) {
+                log.warn("Something bad is going to happen at: {}", message);
+                throw new ArithmeticException(String.format("Something bad has happened at: %d", work.getStart()));
+            }
             getSender().tell(new Result(result), getSelf());
         } else {
             unhandled(message);

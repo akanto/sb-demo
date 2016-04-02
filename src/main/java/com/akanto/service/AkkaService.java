@@ -20,9 +20,14 @@ public class AkkaService {
 
     @Transactional
     public Greeting greetingAkka() {
-        String hello = "Hello Akka! Pi: ";
+        String hello = "Hello Akka! Pi: %s";
         log.debug(hello);
         pi.calculate(4, 10000, 10);
+//        try {
+//            hello = String.format(hello, pi.calculateSync(4, 100000, 10).getPi());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return new Greeting(0, hello);
     }
 
