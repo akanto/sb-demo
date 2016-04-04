@@ -3,19 +3,21 @@ package com.akanto.akka.actors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.akanto.akka.base.ClusteredUntypedActor;
 import com.akanto.akka.messages.Result;
 import com.akanto.akka.messages.Work;
 
-import akka.actor.UntypedActor;
 import scala.Option;
 
-public class Worker extends UntypedActor {
+public class Worker extends ClusteredUntypedActor {
 
     private static Logger log = LoggerFactory.getLogger(Worker.class);
+
 
     public Worker() {
         log.info("Worker instantiated: {}", this);
     }
+
 
     @Override
     public void preRestart(Throwable reason, Option<Object> message) throws Exception {

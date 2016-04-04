@@ -16,7 +16,7 @@ public class Listener extends UntypedActor {
         if (message instanceof PiApproximation) {
             PiApproximation approximation = (PiApproximation) message;
             log.info("Listener: Pi approximation: {}; Calculation time: {}", approximation.getPi(), approximation.getDuration());
-            getContext().system().shutdown();
+            //getContext().system().shutdown();
         } else {
             unhandled(message);
         }

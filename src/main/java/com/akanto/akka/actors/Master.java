@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.akanto.akka.base.ClusteredUntypedActor;
 import com.akanto.akka.messages.Calculate;
 import com.akanto.akka.messages.PiApproximation;
 import com.akanto.akka.messages.Result;
@@ -18,12 +19,11 @@ import akka.actor.OneForOneStrategy;
 import akka.actor.Props;
 import akka.actor.SupervisorStrategy;
 import akka.actor.SupervisorStrategy.Directive;
-import akka.actor.UntypedActor;
 import akka.japi.Function;
 import akka.routing.RoundRobinPool;
 import scala.concurrent.duration.Duration;
 
-public class Master extends UntypedActor {
+public class Master extends ClusteredUntypedActor {
 
     private static Logger log = LoggerFactory.getLogger(Master.class);
 
