@@ -17,6 +17,8 @@ import com.akanto.akka.messages.PiApproximation;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.cluster.singleton.ClusterSingletonManager;
+import akka.cluster.singleton.ClusterSingletonManagerSettings;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 import scala.concurrent.Await;
@@ -36,6 +38,25 @@ public class Pi {
 
     // actors and messages ...
     public void calculate(final int nrOfWorkers, final int nrOfElements, final int nrOfMessages) {
+//        // Create an Akka system
+//        ActorSystem system = ActorSystem.create("ClusterSystem");
+
+        final ClusterSingletonManagerSettings settings =
+                ClusterSingletonManagerSettings.create(actorSystem).withRole("worker");
+
+
+
+        // create the result listener, which will print the result and shutdown the system
+        //final ActorRef listener = system.actorOf(new RoundRobinPool(1).props(Props.create(Listener.class)), "listener");
+        final ActorRef listener = actorSystem.actorOf(ClusterSingletonManager.props(Props.create(Listener.class), null ,settings), "listener-" + cntr.incrementAndGet());
+        // create the master
+        ActorRef master = actorSystem.actorOf(Props.create(Master.class, nrOfWorkers, nrOfMessages, nrOfElements, listener), "master-" + cntr.incrementAndGet());
+        master.tell(new Calculate(), ActorRef.noSender());
+
+    }
+
+    // actors and messages ...
+    public void calculatex(final int nrOfWorkers, final int nrOfElements, final int nrOfMessages) {
 //        // Create an Akka system
 //        ActorSystem system = ActorSystem.create("ClusterSystem");
 

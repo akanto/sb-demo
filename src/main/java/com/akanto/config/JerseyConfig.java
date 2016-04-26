@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.akanto.controller.AkkaController;
 import com.akanto.controller.GreetingController;
+import com.akanto.controller.SaltController;
 
 @Component
 public class JerseyConfig extends ResourceConfig {
@@ -15,5 +16,6 @@ public class JerseyConfig extends ResourceConfig {
     private void registerEndpoints() {
         register(GreetingController.class);
         register(AkkaController.class);
+        register(SaltController.class);
     }
 }

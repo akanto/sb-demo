@@ -33,9 +33,12 @@ dependencies {
     compile("org.springframework:spring-tx")
     compile('com.typesafe.akka:akka-actor_2.11:2.4.3')
     compile('com.typesafe.akka:akka-cluster_2.11:2.4.3')
+    compile('com.typesafe.akka:akka-cluster-tools_2.11:2.4.3')
     compile('com.typesafe.akka:akka-remote_2.11:2.4.3')
     compile('com.typesafe.akka:akka-slf4j_2.11:2.4.3')
+    compile('com.typesafe.akka:akka-persistence_2.11:2.4.3')
     compile("com.h2database:h2")
+    compile('com.suse.salt:salt-netapi-client:0.7.0')
 
     testCompile('org.springframework.boot:spring-boot-starter-test') 
 }

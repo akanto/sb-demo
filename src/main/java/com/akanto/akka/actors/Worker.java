@@ -36,7 +36,12 @@ public class Worker extends ClusteredUntypedActor {
         if (message instanceof Work) {
             Work work = (Work) message;
             double result = calculatePiFor(work.getStart(), work.getNrOfElements());
-            if (Math.random() > 0.9) {
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (Math.random() > 1.9) {
                 log.warn("Something bad is going to happen at: {}", message);
                 throw new ArithmeticException(String.format("Something bad has happened at: %d", work.getStart()));
             }

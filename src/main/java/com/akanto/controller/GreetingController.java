@@ -23,6 +23,11 @@ public class GreetingController implements GreetingEndpoint {
     @Inject
     private GreetingService greetingService;
 
+
+    public GreetingController() {
+        log.debug("Hello");
+    }
+
     @Override
     public Greeting greeting(String name) {
         return greetingService.greeting(name);
