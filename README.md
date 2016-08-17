@@ -11,3 +11,5 @@ References:
 - [http://www.mkyong.com/webservices/jax-rs/json-example-with-jersey-jackson/](http://www.mkyong.com/webservices/jax-rs/json-example-with-jersey-jackson/)
 - [https://spring.io/guides](https://spring.io/guides)
 
+Access to WADL: [http://localhost:8080/application.wadl](http://localhost:8080/application.wadl)
+

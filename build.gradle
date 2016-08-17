@@ -39,6 +39,8 @@ dependencies {
     compile('com.typesafe.akka:akka-persistence_2.11:2.4.3')
     compile("com.h2database:h2")
     compile('com.suse.salt:salt-netapi-client:0.7.0')
+    compile('io.swagger:swagger-jersey2-jaxrs:1.5.9')
+
 
     testCompile('org.springframework.boot:spring-boot-starter-test') 
 }
