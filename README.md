@@ -13,3 +13,6 @@ References:
 
 Access to WADL: [http://localhost:8080/application.wadl](http://localhost:8080/application.wadl)
 
+Access to Swagger: [http://localhost:8080/swagger.json](http://localhost:8080/swagger.json)
+
+Generate swagger goloang binding:  `swagger generate client -f http://localhost:8080/swagger.json`
