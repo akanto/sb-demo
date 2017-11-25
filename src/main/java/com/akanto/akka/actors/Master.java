@@ -19,11 +19,12 @@ import akka.actor.OneForOneStrategy;
 import akka.actor.Props;
 import akka.actor.SupervisorStrategy;
 import akka.actor.SupervisorStrategy.Directive;
+import akka.actor.UntypedActor;
 import akka.japi.Function;
 import akka.routing.RoundRobinPool;
 import scala.concurrent.duration.Duration;
 
-public class Master extends ClusteredUntypedActor {
+public class Master extends UntypedActor {
 
     private static Logger log = LoggerFactory.getLogger(Master.class);
 
