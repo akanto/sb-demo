@@ -10,7 +10,7 @@ public class AkkaConfiguration {
     @Bean
     public ActorSystem actorSystem() {
         // Create an Akka system
-        return ActorSystem.create("ClusterSystem");
+        return ActorSystem.create("AkkaActorSystem");
     }
 
 }

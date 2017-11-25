@@ -30,6 +30,7 @@ public class GreetingController implements GreetingEndpoint {
 
     @Override
     public Greeting greeting(String name) {
+        greetingService.slowMockDbCall();
         return greetingService.greeting(name);
     }
 

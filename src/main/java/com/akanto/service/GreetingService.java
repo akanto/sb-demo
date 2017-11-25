@@ -23,11 +23,27 @@ public class GreetingService {
     private Logger log = LoggerFactory.getLogger(GreetingService.class);
 
     @Transactional
+    public void slowMockDbCall() {
+        log.debug("NotCachedGreeting invoked. name");
+
+        int random = new Random().nextInt(300);
+
+        try (ActiveSpan span = GlobalTracer.get().buildSpan("slowMockDbCall").startActive()) {
+            try {
+                Thread.sleep(random);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Transactional
     @Cacheable(cacheNames="greetings", key="#name")
     public Greeting greeting(String name) {
         log.debug("Greeting invoked. name: {}", name);
 
-        int random = new Random().nextInt(200);
+        int random = new Random().nextInt(100);
 
         try (ActiveSpan span = GlobalTracer.get().buildSpan("greeting").startActive()) {
             try {

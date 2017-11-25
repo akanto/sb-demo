@@ -20,6 +20,7 @@ import akka.actor.Props;
 import akka.cluster.singleton.ClusterSingletonManager;
 import akka.cluster.singleton.ClusterSingletonManagerSettings;
 import akka.pattern.Patterns;
+import akka.routing.RoundRobinPool;
 import akka.util.Timeout;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
@@ -41,14 +42,14 @@ public class Pi {
 //        // Create an Akka system
 //        ActorSystem system = ActorSystem.create("ClusterSystem");
 
-        final ClusterSingletonManagerSettings settings =
-                ClusterSingletonManagerSettings.create(actorSystem).withRole("worker");
+        //final ClusterSingletonManagerSettings settings =
+        //ClusterSingletonManagerSettings.create(actorSystem).withRole("worker");
 
 
 
         // create the result listener, which will print the result and shutdown the system
-        //final ActorRef listener = system.actorOf(new RoundRobinPool(1).props(Props.create(Listener.class)), "listener");
-        final ActorRef listener = actorSystem.actorOf(ClusterSingletonManager.props(Props.create(Listener.class), null ,settings), "listener-" + cntr.incrementAndGet());
+        final ActorRef listener = actorSystem.actorOf(new RoundRobinPool(1).props(Props.create(Listener.class)), "listener");
+        // final ActorRef listener = actorSystem.actorOf(ClusterSingletonManager.props(Props.create(Listener.class), null ,settings), "listener-" + cntr.incrementAndGet());
         // create the master
         ActorRef master = actorSystem.actorOf(Props.create(Master.class, nrOfWorkers, nrOfMessages, nrOfElements, listener), "master-" + cntr.incrementAndGet());
         master.tell(new Calculate(), ActorRef.noSender());
@@ -72,11 +73,10 @@ public class Pi {
 
 
     public PiApproximation calculateSync(final int nrOfWorkers, final int nrOfElements, final int nrOfMessages) throws Exception {
-        // Create an Akka system
-        ActorSystem system = ActorSystem.create("PiSystem");
+
 
         // create the master
-        ActorRef master = system.actorOf(Props.create(MasterSync.class, nrOfWorkers, nrOfMessages, nrOfElements), "master");
+        ActorRef master = actorSystem.actorOf(Props.create(MasterSync.class, nrOfWorkers, nrOfMessages, nrOfElements), "master");
 
         Timeout timeout = new Timeout(Duration.create(10, TimeUnit.SECONDS));
         Future<Object> future = Patterns.ask(master, new Calculate(), timeout);
