@@ -4,6 +4,7 @@ Demonstrate how to use JAX-RS instead of Spring MVC.
 
 Test it with:
 - JSON response: [http://localhost:8080/greeting?name=World](http://localhost:8080/greeting?name=World)
+- Hello Akka: [http://localhost:8080/akka](http://localhost:8080/akka)
 - Forbidden: [http://localhost:8080/greeting/error](http://localhost:8080/greeting/error)
 
 References:
