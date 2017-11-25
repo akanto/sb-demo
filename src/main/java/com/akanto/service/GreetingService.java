@@ -26,10 +26,10 @@ public class GreetingService {
     public void slowMockDbCall() {
         log.debug("NotCachedGreeting invoked. name");
 
-        int random = new Random().nextInt(300);
 
         try (ActiveSpan span = GlobalTracer.get().buildSpan("slowMockDbCall").startActive()) {
             try {
+                int random = new Random().nextInt(300);
                 Thread.sleep(random);
             } catch (InterruptedException e) {
                 e.printStackTrace();

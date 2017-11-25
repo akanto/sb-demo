@@ -1,5 +1,7 @@
 package com.akanto.akka.actors;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,11 +41,12 @@ public class Worker extends ClusteredUntypedActor {
             Work work = (Work) message;
             try (ActiveSpan span = GlobalTracer.get().buildSpan("akkaWork").asChildOf(work.getActiveSpan()).startActive()) {
                 double result = calculatePiFor(work.getStart(), work.getNrOfElements());
-//            try {
-//                Thread.sleep(10000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+                try {
+                    int random = new Random().nextInt(500);
+                    Thread.sleep(random);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 //            if (Math.random() > 1.9) {
 //                log.warn("Something bad is going to happen at: {}", message);
 //                throw new ArithmeticException(String.format("Something bad has happened at: %d", work.getStart()));
