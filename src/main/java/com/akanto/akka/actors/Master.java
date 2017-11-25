@@ -68,7 +68,7 @@ public class Master extends UntypedActor {
         log.info("Master message received: {}", message);
         if (message instanceof Calculate) {
             for (int start = 0; start < nrOfMessages; start++) {
-                workerRouter.tell(new Work(start, nrOfElements), getSelf());
+                workerRouter.tell(new Work(start, nrOfElements, ((Calculate) message).getActiveSpan()), getSelf());
             }
         } else if (message instanceof Result) {
             Result result = (Result) message;

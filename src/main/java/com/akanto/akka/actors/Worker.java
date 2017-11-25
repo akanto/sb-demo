@@ -7,6 +7,8 @@ import com.akanto.akka.base.ClusteredUntypedActor;
 import com.akanto.akka.messages.Result;
 import com.akanto.akka.messages.Work;
 
+import io.opentracing.ActiveSpan;
+import io.opentracing.util.GlobalTracer;
 import scala.Option;
 
 public class Worker extends ClusteredUntypedActor {
@@ -35,7 +37,8 @@ public class Worker extends ClusteredUntypedActor {
         log.info("Worker message received: {}", message);
         if (message instanceof Work) {
             Work work = (Work) message;
-            double result = calculatePiFor(work.getStart(), work.getNrOfElements());
+            try (ActiveSpan span = GlobalTracer.get().buildSpan("akkaWork").asChildOf(work.getActiveSpan()).startActive()) {
+                double result = calculatePiFor(work.getStart(), work.getNrOfElements());
 //            try {
 //                Thread.sleep(10000);
 //            } catch (InterruptedException e) {
@@ -45,7 +48,8 @@ public class Worker extends ClusteredUntypedActor {
 //                log.warn("Something bad is going to happen at: {}", message);
 //                throw new ArithmeticException(String.format("Something bad has happened at: %d", work.getStart()));
 //            }
-            getSender().tell(new Result(result), getSelf());
+                getSender().tell(new Result(result), getSelf());
+            }
         } else {
             unhandled(message);
         }

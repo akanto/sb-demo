@@ -22,6 +22,8 @@ import akka.cluster.singleton.ClusterSingletonManagerSettings;
 import akka.pattern.Patterns;
 import akka.routing.RoundRobinPool;
 import akka.util.Timeout;
+import io.opentracing.ActiveSpan;
+import io.opentracing.util.GlobalTracer;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
@@ -52,7 +54,7 @@ public class Pi {
         // final ActorRef listener = actorSystem.actorOf(ClusterSingletonManager.props(Props.create(Listener.class), null ,settings), "listener-" + cntr.incrementAndGet());
         // create the master
         ActorRef master = actorSystem.actorOf(Props.create(Master.class, nrOfWorkers, nrOfMessages, nrOfElements, listener), "master-" + cntr.incrementAndGet());
-        master.tell(new Calculate(), ActorRef.noSender());
+        master.tell(new Calculate(null), ActorRef.noSender());
 
     }
 
@@ -66,21 +68,24 @@ public class Pi {
         final ActorRef listener = actorSystem.actorOf(Props.create(Listener.class), "listener-" + cntr.incrementAndGet());
         // create the master
         ActorRef master = actorSystem.actorOf(Props.create(Master.class, nrOfWorkers, nrOfMessages, nrOfElements, listener), "master-" + cntr.incrementAndGet());
-        master.tell(new Calculate(), ActorRef.noSender());
+        master.tell(new Calculate(null), ActorRef.noSender());
 
     }
 
 
 
     public PiApproximation calculateSync(final int nrOfWorkers, final int nrOfElements, final int nrOfMessages) throws Exception {
+        try (ActiveSpan span = GlobalTracer.get().buildSpan("calculateSync").startActive()) {
 
 
-        // create the master
-        ActorRef master = actorSystem.actorOf(Props.create(MasterSync.class, nrOfWorkers, nrOfMessages, nrOfElements), "master");
+            // create the master
+            ActorRef master = actorSystem.actorOf(Props.create(MasterSync.class, nrOfWorkers, nrOfMessages, nrOfElements), "master");
 
-        Timeout timeout = new Timeout(Duration.create(10, TimeUnit.SECONDS));
-        Future<Object> future = Patterns.ask(master, new Calculate(), timeout);
-        return (PiApproximation) Await.result(future, timeout.duration());
+
+            Timeout timeout = new Timeout(Duration.create(10, TimeUnit.SECONDS));
+            Future<Object> future = Patterns.ask(master, new Calculate(span), timeout);
+            return (PiApproximation) Await.result(future, timeout.duration());
+        }
 
     }
 

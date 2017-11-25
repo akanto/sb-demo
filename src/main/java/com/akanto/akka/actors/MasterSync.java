@@ -41,7 +41,7 @@ public class MasterSync extends UntypedActor {
         if (message instanceof Calculate) {
             original = getSender();
             for (int start = 0; start < nrOfMessages; start++) {
-                workerRouter.tell(new Work(start, nrOfElements), getSelf());
+                workerRouter.tell(new Work(start, nrOfElements, ((Calculate) message).getActiveSpan()), getSelf());
             }
         } else if (message instanceof Result) {
             Result result = (Result) message;
