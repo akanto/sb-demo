@@ -1,4 +1,5 @@
 # Spring Boot Demo
+[![Maintainability](https://api.codeclimate.com/v1/badges/182a1ea33d50b571632a/maintainability)](https://codeclimate.com/github/akanto/sb-demo/maintainability)
 
 Demonstrate how to use JAX-RS instead of Spring MVC.
 
