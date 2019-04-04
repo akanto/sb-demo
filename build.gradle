@@ -22,7 +22,9 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework:spring-tx'
   implementation 'org.springframework:spring-context-support'
-  
+
+  implementation 'io.micrometer:micrometer-registry-prometheus'
+
   implementation 'com.h2database:h2'
   
   implementation 'io.swagger:swagger-jersey2-jaxrs:1.5.9'
