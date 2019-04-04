@@ -3,7 +3,6 @@ package com.akanto.config;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
-import com.akanto.controller.AkkaController;
 import com.akanto.controller.GreetingController;
 import com.uber.jaeger.Configuration;
 import com.uber.jaeger.filters.jaxrs2.TracingUtils;
@@ -27,7 +26,6 @@ public class JerseyConfig extends ResourceConfig {
 
     private void registerEndpoints() {
         register(GreetingController.class);
-        register(AkkaController.class);
         register(TracingUtils.serverFilter(GlobalTracer.get()));
     }
 
