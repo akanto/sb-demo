@@ -1,8 +1,6 @@
 package com.akanto.controller;
 
 import javax.inject.Inject;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +27,18 @@ public class GreetingController implements GreetingEndpoint {
     }
 
     @Override
-    public Greeting greeting(String name) {
-        greetingService.slowMockDbCall();
-        return greetingService.greeting(name);
+    public Greeting greeting() {
+            return new Greeting(0, "No name has provided, please use /greeting/quick?name=World");
     }
 
     @Override
-    public Greeting error() {
-        throw new WebApplicationException("Some message with a status e.g. forbidden",
-                Response.Status.FORBIDDEN);
+    public Greeting greetingQuick(String name) {
+        return greetingService.greetingWithCache(name);
+    }
+
+    @Override
+    public Greeting greetingSlow(String name) {
+        return greetingService.greetingNoCache(name);
     }
 
 

@@ -23,6 +23,8 @@ dependencies {
   implementation 'org.springframework:spring-tx'
   implementation 'org.springframework:spring-context-support'
   
+  implementation 'com.h2database:h2'
+  
   implementation 'io.swagger:swagger-jersey2-jaxrs:1.5.9'
   implementation 'net.sf.ehcache:ehcache:2.8.3'
 

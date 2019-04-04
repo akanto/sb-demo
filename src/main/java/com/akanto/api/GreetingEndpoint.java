@@ -20,14 +20,18 @@ public interface GreetingEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "say hello", produces = MediaType.APPLICATION_JSON)
-    Greeting greeting(@QueryParam(value = "name") String name);
-
+    Greeting greeting();
 
     @GET
-    @Path("/error")
+    @Path("/quick")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "say error", produces = MediaType.APPLICATION_JSON)
-    Greeting error();
+    @ApiOperation(value = "say hello to sby", produces = MediaType.APPLICATION_JSON)
+    Greeting greetingQuick(@QueryParam(value = "name") String name);
 
+    @GET
+    @Path("/slow")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "say hello to sby", produces = MediaType.APPLICATION_JSON)
+    Greeting greetingSlow(@QueryParam(value = "name") String name);
 
 }
