@@ -23,6 +23,8 @@ dependencies {
   implementation 'org.springframework:spring-tx'
   implementation 'org.springframework:spring-context-support'
 
+  implementation 'io.micrometer:micrometer-core'
+  implementation 'io.micrometer:micrometer-jersey2'
   implementation 'io.micrometer:micrometer-registry-prometheus'
 
   implementation 'com.h2database:h2'
