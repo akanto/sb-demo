@@ -30,13 +30,10 @@ dependencies {
   implementation 'com.typesafe.akka:akka-slf4j_2.11:2.4.3'
   implementation 'com.typesafe.akka:akka-persistence_2.11:2.4.3'
   implementation 'com.h2database:h2'
-  implementation 'com.suse.salt:salt-netapi-client:0.7.0'
   implementation 'io.swagger:swagger-jersey2-jaxrs:1.5.9'
   implementation 'net.sf.ehcache:ehcache:2.8.3'
   implementation 'com.uber.jaeger:jaeger-jaxrs2:0.22.0-RC2'
-
-
-
+  
 
   runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 

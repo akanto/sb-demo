@@ -5,17 +5,16 @@ import org.springframework.stereotype.Component;
 
 import com.akanto.controller.AkkaController;
 import com.akanto.controller.GreetingController;
-import com.akanto.controller.SaltController;
 import com.uber.jaeger.Configuration;
 import com.uber.jaeger.filters.jaxrs2.TracingUtils;
 import com.uber.jaeger.samplers.ProbabilisticSampler;
 
-import io.opentracing.Tracer;
 import io.opentracing.util.GlobalTracer;
 import io.swagger.jaxrs.listing.ApiListingResource;
 
 @Component
 public class JerseyConfig extends ResourceConfig {
+
     public JerseyConfig() {
         configureSwagger();
         globalTracer();
@@ -29,7 +28,6 @@ public class JerseyConfig extends ResourceConfig {
     private void registerEndpoints() {
         register(GreetingController.class);
         register(AkkaController.class);
-        register(SaltController.class);
         register(TracingUtils.serverFilter(GlobalTracer.get()));
     }
 
