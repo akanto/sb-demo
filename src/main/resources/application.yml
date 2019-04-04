@@ -1,0 +1,11 @@
+#
+#
+#management:
+#  metrics:
+#    distribution:
+#      percentiles-histogram:
+#        "[http.server.requests]": true
+#      sla:
+#        "[http.server.requests]": 100ms, 500ms, 1000ms
+#      percentiles:
+#        "[http.server.requests]": 0.5, 0.75, 0.95, 0.98, 0.99, 0.999, 1.0
