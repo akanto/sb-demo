@@ -4,11 +4,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
 import com.akanto.controller.GreetingController;
-import com.uber.jaeger.Configuration;
-import com.uber.jaeger.filters.jaxrs2.TracingUtils;
-import com.uber.jaeger.samplers.ProbabilisticSampler;
 
-import io.opentracing.util.GlobalTracer;
 import io.swagger.jaxrs.listing.ApiListingResource;
 
 @Component
@@ -16,7 +12,6 @@ public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
         configureSwagger();
-        globalTracer();
         registerEndpoints();
     }
 
@@ -26,17 +21,6 @@ public class JerseyConfig extends ResourceConfig {
 
     private void registerEndpoints() {
         register(GreetingController.class);
-        register(TracingUtils.serverFilter(GlobalTracer.get()));
     }
 
-    private void globalTracer() {
-        GlobalTracer.register(
-                new Configuration(
-                        "sb-demo",
-                        new Configuration.SamplerConfiguration(ProbabilisticSampler.TYPE, 1),
-                        new Configuration.ReporterConfiguration(
-                                false, "192.168.99.100", 5775, 1000, 10000)
-                ).getTracer());
-
-    }
 }
