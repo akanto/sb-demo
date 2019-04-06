@@ -32,6 +32,6 @@ public interface GreetingEndpoint {
     @Path("/slow")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "say hello to sby", produces = MediaType.APPLICATION_JSON)
-    Greeting greetingSlow(@QueryParam(value = "name") String name);
+    Greeting greetingSlow(@QueryParam(value = "name") String name, @QueryParam(value = "delay") Long delay);
 
 }

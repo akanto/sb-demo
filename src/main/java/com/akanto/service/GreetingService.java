@@ -26,15 +26,20 @@ public class GreetingService {
     public Greeting greetingWithCache(String name) {
         log.debug("Greeting invoked. name: {}", name);
 
-        return greetingNoCache(name);
+        return greetingNoCache(name, 0L);
     }
 
     @Transactional
-    public Greeting greetingNoCache(String name) {
+    public Greeting greetingNoCache(String name, Long delay) {
         log.debug("Greeting invoked. name: {}", name);
 
-        long sleep = ThreadLocalRandom.current().nextLong(10000);
+        long sleep;
 
+        if (delay == null) {
+            sleep = ThreadLocalRandom.current().nextLong(10000);
+        } else {
+            sleep = delay;
+        }
         log.info("Sleeping for {}", sleep);
 
         try {
@@ -44,6 +49,6 @@ public class GreetingService {
         }
 
         return new Greeting(counter.incrementAndGet(),
-                String.format(template, name));
+                String.format(template, name), sleep);
     }
 }

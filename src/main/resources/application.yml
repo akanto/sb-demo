@@ -1,11 +1,20 @@
-#
-#
-#management:
-#  metrics:
-#    distribution:
-#      percentiles-histogram:
-#        "[http.server.requests]": true
-#      sla:
-#        "[http.server.requests]": 100ms, 500ms, 1000ms
-#      percentiles:
-#        "[http.server.requests]": 0.5, 0.75, 0.95, 0.98, 0.99, 0.999, 1.0
+
+
+## https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": false
+      minimum-expected-value:
+        "[http.server.requests]": "100ms"
+      .maximum-expected-value:
+        "[http.server.requests]": "5s"
+      sla:
+        "[http.server.requests]": "125ms, 250ms, 500ms, 1s, 2s"
+      percentiles:
+        "[http.server.requests]": "0.5, 0.95"

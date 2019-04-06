@@ -28,7 +28,7 @@ public class GreetingController implements GreetingEndpoint {
 
     @Override
     public Greeting greeting() {
-            return new Greeting(0, "No name has provided, please use /greeting/quick?name=World");
+        return new Greeting(0, "No name has provided, please use /greeting/quick?name=World", null);
     }
 
     @Override
@@ -37,9 +37,8 @@ public class GreetingController implements GreetingEndpoint {
     }
 
     @Override
-    public Greeting greetingSlow(String name) {
-        return greetingService.greetingNoCache(name);
+    public Greeting greetingSlow(String name, Long delay) {
+        return greetingService.greetingNoCache(name, delay);
     }
-
 
 }
